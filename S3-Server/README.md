@@ -1,4 +1,4 @@
-#**Zenko Cloud Server Scality S3**
+**#Zenko Cloud Server Scality S3**
 
 **Zenko CloudServer, an open-source Node.js implementation of the Amazon S3 protocol on the front-end and backend storage capabilities to multiple clouds, including Azure and Google**
 
@@ -10,9 +10,9 @@ These variables specify authentication credentials for an account named "CustomA
 You can set credentials for many accounts by editing conf/authdata.json (see below for further info), but if you just want to specify one set of your own, you can use these environment variables.
 The default access key is accessKey1, with the secret key verySecretKey1
 
-  environment:
-    * - SCALITY_ACCESS_KEY_ID=accessKey1
-    * - SCALITY_SECRET_ACCESS_KEY=verySecretKey1
+  environment:  
+    * - SCALITY_ACCESS_KEY_ID=accessKey1  
+    * - SCALITY_SECRET_ACCESS_KEY=verySecretKey1  
 
 
 **In production with Docker hosted CloudServer**
