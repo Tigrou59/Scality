@@ -1,4 +1,4 @@
-#**CloudServer**
+**ZEnko CloudServer Scality S3**
 
 **Zenko CloudServer, an open-source Node.js implementation of the Amazon S3 protocol on the front-end and backend storage capabilities to multiple clouds, including Azure and Google**
 
@@ -31,7 +31,7 @@ volumes:
    docker-compose down
 
 **Public Docker repository for cloudserver Scality Zenko**
-  https://hub.docker.com/r/scality/s3server/
+  * https://hub.docker.com/r/scality/s3server/
 
 **Public GitHub source repo**
-  https://github.com/scality/cloudserver
+  * https://github.com/scality/cloudserver
