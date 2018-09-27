@@ -13,9 +13,6 @@ The default access key is accessKey1, with the secret key verySecretKey1
   environment:
     - SCALITY_ACCESS_KEY_ID=accessKey1
     - SCALITY_SECRET_ACCESS_KEY=verySecretKey1
-    - ENDPOINT=dvvdcasc10.rouen.francetelecom.fr
-    - LOG_LEVEL=info
-    - SSL="FALSE"
 
 **In production with Docker hosted CloudServer
 
