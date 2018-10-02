@@ -8,12 +8,11 @@ services:
       - "8000:8000"
     volumes:
       - s3data:/usr/src/app/localData
-      - s3data:/usr/src/app/localMetadata
+      - s3metadata:/usr/src/app/localMetadata
     environment:
-      - SCALITY_ACCESS_KEY_ID=accessKey1
-      - SCALITY_SECRET_ACCESS_KEY=verySecretKey1
-      - ENDPOINT=dvvdcasc10.rouen.francetelecom.fr
-      - LOG_LEVEL=info
+      - SCALITY_ACCESS_KEY_ID=newAccessKey
+      - SCALITY_SECRET_ACCESS_KEY=newSecretKey
       - SSL="FALSE"
 volumes:
   s3data:
+  s3metadata:
