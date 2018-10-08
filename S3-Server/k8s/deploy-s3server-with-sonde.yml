@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s3server
+spec:
+  replicas: 3
+  minReadySeconds: 5
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: s3server
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: s3server
+    spec:
+      containers:
+      - name: s3server
+        image: scality/s3server:latest
+        ports:
+          - name: main
+            containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: config-map-s3
+        volumeMounts:
+        - mountPath: /usr/src/app/localData
+          name: s3data
+        - mountPath: /usr/src/app/localMetadata
+          name: s3metadata
+        livenessProbe:
+          httpGet:
+            path: /.healthcheck
+            port: 8000
+          periodSeconds: 5
+          initialDelaySeconds: 2
+        readinessProbe:
+          httpGet:
+            path: /.readicheck
+            port: 8000
+          periodSeconds: 5
+          initialDelaySeconds: 5
+      volumes:
+        - name: s3data
+          persistentVolumeClaim:
+            claimName: s3server-claim
+        - name: s3metadata
+          persistentVolumeClaim:
+            claimName: s3server2-claim
+...

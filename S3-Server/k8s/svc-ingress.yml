@@ -1,0 +1,14 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ing-aws
+spec:
+  rules:
+  - host: 10.0.2.15
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: ing-aws
+          servicePort: 8080
