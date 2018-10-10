@@ -27,8 +27,8 @@ volumes:
 
 *Pull the image s3server from the GitLab repo scality-s3server*
 
-   `docker login registry.forge.orange-labs.fr`  
-   `docker image pull registry.forge.orange-labs.fr/urba/scality-s3server`
+`docker login registry.forge.orange-labs.fr`    
+`docker image pull registry.forge.orange-labs.fr/urba/scality-s3server`
 
 *Tag the image s3server for matching docker-compose YAML*  
 `docker image tag scality-s3server:latest registry.forge.orange-labs.fr/urba/scality-s3server:scality-s3server`
