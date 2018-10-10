@@ -74,7 +74,7 @@ That you will use the multiple backends capabilities of Zenko CloudServer, and t
   NAME            DATA   AGE
 - config-map-s3   3      1d
 
-**A Persistent Volumes for storage local or on any other types of storage suported by kubernetes (Volume Plugin)**
+**Persistent Volumes for storage local or on any other types of storage suported by kubernetes (Volume Plugin)**
 
   `kubectl apply -f pv-s3server.yml`
 
