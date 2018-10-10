@@ -5,18 +5,18 @@
 https://github.com/robertluwang/docker-hands-on-guide/blob/master/minikube-none-installation.md
 
 *Verify the installation*
-  * minikube status
+`minikube status`
 >minikube: Running
 cluster: Running
 kubectl: Correctly Configured: pointing to minikube-vm at 10.0.2.15
 
-  * kubectl cluster-info
+`kubectl cluster-info`
 >Kubernetes master is running at https://10.0.2.15:8443
 KubeDNS is running at https://10.0.2.15:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
 >To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 
-  * kubectl get pods --all-namespaces
+ `kubectl get pods --all-namespaces`
 
   NAMESPACE     NAME                                    READY   STATUS             RESTARTS   AGE
 - kube-system   coredns-c4cffd6dc-slx45                 1/1     Running            2          5d
@@ -34,9 +34,9 @@ KubeDNS is running at https://10.0.2.15:8443/api/v1/namespaces/kube-system/servi
 
 *Verify that the ADDON dashboard is enabled and set the ADDON heapster at enabled, then start the k8s console*
 
-  * minikube addons enable heapster
+  `minikube addons enable heapster`
 
-  * minikube addons list
+  `minikube addons list`
 
 - addon-manager: enabled
 - coredns: enabled
@@ -56,7 +56,7 @@ KubeDNS is running at https://10.0.2.15:8443/api/v1/namespaces/kube-system/servi
 
 *Start the k8s console*
 
-  * minikube dashboard
+  `minikube dashboard`
 
 **In Dev environnment with k8s in cluster minikube**
 
@@ -67,41 +67,41 @@ That you will use the multiple backends capabilities of Zenko CloudServer, and t
 *Many object k8s will be created, in logical order :*
 **ConfigMap that stores ENV variables**
 
-  * kubectl apply -f configmap-s3server.yml
+  `kubectl apply -f configmap-s3server.yml`
 
-  * kubectl get cm -o wide
+  `kubectl get cm -o wide`
 
   NAME            DATA   AGE
 - config-map-s3   3      1d
 
 **A Persistent Volumes for storage local or on any other types of storage suported by kubernetes (Volume Plugin)**
 
-  * kubectl apply -f pv-s3server.yml
+  `kubectl apply -f pv-s3server.yml`
 
-  * kubectl get pv -o wide
+  `kubectl get pv -o wide`
 
   NAME     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                     STORAGECLASS   REASON   AGE
 - s3-pv    1000Mi     RWO,ROX        Recycle          Bound    default/s3server-claim                            3d
 
 **PersistentVolumeClaim for binding the PersistentVolume and then use refered this in pods**
 
-  * kubectl apply -f pvc-s3server.yml
+  `kubectl apply -f pvc-s3server.yml`
 
-  * kubectl get pvc -o wide
+  `kubectl get pvc -o wide`
 
   NAME              STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 - s3server-claim    Bound    s3-pv    1000Mi     RWO,ROX                       3d
 
 *At the hight level, the Deployment wich including replicas, pods, labels, environment config, strategy of rolling update, claim for pvc...*
 
-  * kubectl apply -f deploy-s3server-pv.yml --record
+  `kubectl apply -f deploy-s3server-pv.yml --record`
 
-  * kubectl get deploy -o wide
+  `kubectl get deploy -o wide`
 
   NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                    SELECTOR
 - s3server          3         3         3            3           1d    s3server     scality/s3server:latest   app=s3server
 
-  * kubectl get pods -l app=s3server -o wide
+  `kubectl get pods -l app=s3server -o wide`
 
   NAME                        READY   STATUS    RESTARTS   AGE   IP            NODE
 - s3server-6ffc956c55-hp5cc   1/1     Running   1          1d    172.17.0.11   minikube
@@ -114,7 +114,7 @@ That you will use the multiple backends capabilities of Zenko CloudServer, and t
 The DNS add-on implements a POD-based DNS service in the cluster and configures all kubelets (nodes) to use it for DNS
 ie: minikube addons list
 
-  * kubectl get svc -l app=s3server -o wide
+  `kubectl get svc -l app=s3server -o wide`
 
   NAME           TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE   SELECTOR
 - s3server-svc   NodePort   10.109.72.126   <none>        8000:30042/TCP   5d    app=s3server
