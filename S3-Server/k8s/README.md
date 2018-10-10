@@ -19,7 +19,6 @@ KubeDNS is running at https://10.0.2.15:8443/api/v1/namespaces/kube-system/servi
   * kubectl get pods --all-namespaces
 
   NAMESPACE     NAME                                    READY   STATUS             RESTARTS   AGE
-
 - kube-system   coredns-c4cffd6dc-slx45                 1/1     Running            2          5d
 - kube-system   etcd-minikube                           1/1     Running            7          8d
 - kube-system   heapster-p2f9x                          1/1     Running            6          5d
@@ -35,9 +34,9 @@ KubeDNS is running at https://10.0.2.15:8443/api/v1/namespaces/kube-system/servi
 
 *Verify that the ADDON dashboard is enabled and set the ADDON heapster at enabled, then start the k8s console*
 
-> minikube addons enable heapster
+  * minikube addons enable heapster
 
-> minikube addons list
+  * minikube addons list
 
 - addon-manager: enabled
 - coredns: enabled
@@ -85,6 +84,7 @@ That you will use the multiple backends capabilities of Zenko CloudServer, and t
 - s3-pv    1000Mi     RWO,ROX        Recycle          Bound    default/s3server-claim                            3d
 
 **PersistentVolumeClaim for binding the PersistentVolume and then use refered this in pods**
+
   * kubectl apply -f pvc-s3server.yml
 
   * kubectl get pvc -o wide
