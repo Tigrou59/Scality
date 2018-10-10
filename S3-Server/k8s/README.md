@@ -101,7 +101,7 @@ That you will use the multiple backends capabilities of Zenko CloudServer, and t
   NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                    SELECTOR
 - s3server          3         3         3            3           1d    s3server     scality/s3server:latest   app=s3server
 
-  `kubectl get pods -l app=s3server -o wide`
+ `kubectl get pods -l app=s3server -o wide`
 
   NAME                        READY   STATUS    RESTARTS   AGE   IP            NODE
 - s3server-6ffc956c55-hp5cc   1/1     Running   1          1d    172.17.0.11   minikube
