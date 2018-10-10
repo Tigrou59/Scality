@@ -17,30 +17,28 @@ KubeDNS is running at https://10.0.2.15:8443/api/v1/namespaces/kube-system/servi
 >To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 
   * kubectl get pods --all-namespaces
-NAMESPACE     NAME                                    READY   STATUS             RESTARTS   AGE
-default       nginx-deployment-7798d77698-7wz2q       1/1     Running            6          4d
-default       nginx-deployment-7798d77698-kjsjl       1/1     Running            6          4d
-default       s3server-6ffc956c55-hp5cc               1/1     Running            1          23h
-default       s3server-6ffc956c55-llld7               1/1     Running            1          23h
-default       s3server-6ffc956c55-xhxbm               1/1     Running            1          23h
-kube-system   coredns-c4cffd6dc-slx45                 0/1     CrashLoopBackOff   709        5d
-kube-system   etcd-minikube                           1/1     Running            7          8d
-kube-system   heapster-p2f9x                          1/1     Running            6          5d
-kube-system   influxdb-grafana-kspgm                  2/2     Running            12         5d
-kube-system   kube-addon-manager-minikube             1/1     Running            7          8d
-kube-system   kube-apiserver-minikube                 1/1     Running            7          8d
-kube-system   kube-controller-manager-minikube        1/1     Running            7          8d
-kube-system   kube-dns-79f5cdddc5-79sht               3/3     Running            41         2d
-kube-system   kube-proxy-smk6n                        1/1     Running            7          8d
-kube-system   kube-scheduler-minikube                 1/1     Running            8          8d
-kube-system   kubernetes-dashboard-6f4cfc5d87-rs6dk   1/1     Running            13         8d
-kube-system   storage-provisioner                     1/1     Running            14         8d
+
+  NAMESPACE     NAME                                    READY   STATUS             RESTARTS   AGE
+
+- kube-system   coredns-c4cffd6dc-slx45                 1/1     Running            2          5d
+- kube-system   etcd-minikube                           1/1     Running            7          8d
+- kube-system   heapster-p2f9x                          1/1     Running            6          5d
+- kube-system   influxdb-grafana-kspgm                  2/2     Running            12         5d
+- kube-system   kube-addon-manager-minikube             1/1     Running            7          8d
+- kube-system   kube-apiserver-minikube                 1/1     Running            7          8d
+- kube-system   kube-controller-manager-minikube        1/1     Running            7          8d
+- kube-system   kube-dns-79f5cdddc5-79sht               3/3     Running            41         2d
+- kube-system   kube-proxy-smk6n                        1/1     Running            7          8d
+- kube-system   kube-scheduler-minikube                 1/1     Running            8          8d
+- kube-system   kubernetes-dashboard-6f4cfc5d87-rs6dk   1/1     Running            13         8d
+- kube-system   storage-provisioner                     1/1     Running            14         8d
 
 *Verify that the ADDON dashboard is enabled and set the ADDON heapster at enabled, then start the k8s console*
 
-  * minikube addons enable heapster
+> minikube addons enable heapster
 
-  * minikube addons list
+> minikube addons list
+
 - addon-manager: enabled
 - coredns: enabled
 - dashboard: enabled
@@ -73,37 +71,42 @@ That you will use the multiple backends capabilities of Zenko CloudServer, and t
   * kubectl apply -f configmap-s3server.yml
 
   * kubectl get cm -o wide
-NAME            DATA   AGE
-config-map-s3   3      1d
+
+  NAME            DATA   AGE
+- config-map-s3   3      1d
 
 **A Persistent Volumes for storage local or on any other types of storage suported by kubernetes (Volume Plugin)**
 
   * kubectl apply -f pv-s3server.yml
 
   * kubectl get pv -o wide
->NAME     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                     STORAGECLASS   REASON   AGE
-s3-pv    1000Mi     RWO,ROX        Recycle          Bound    default/s3server-claim                            3d
+
+  NAME     CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                     STORAGECLASS   REASON   AGE
+- s3-pv    1000Mi     RWO,ROX        Recycle          Bound    default/s3server-claim                            3d
 
 **PersistentVolumeClaim for binding the PersistentVolume and then use refered this in pods**
   * kubectl apply -f pvc-s3server.yml
 
   * kubectl get pvc -o wide
->NAME              STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
-s3server-claim    Bound    s3-pv    1000Mi     RWO,ROX                       3d
+
+  NAME              STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+- s3server-claim    Bound    s3-pv    1000Mi     RWO,ROX                       3d
 
 *At the hight level, the Deployment wich including replicas, pods, labels, environment config, strategy of rolling update, claim for pvc...*
 
   * kubectl apply -f deploy-s3server-pv.yml --record
 
   * kubectl get deploy -o wide
->NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                    SELECTOR
-s3server           3         3         3            3           1d    s3server     scality/s3server:latest   app=s3server
+
+  NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                    SELECTOR
+- s3server          3         3         3            3           1d    s3server     scality/s3server:latest   app=s3server
 
   * kubectl get pods -l app=s3server -o wide
->NAME                        READY   STATUS    RESTARTS   AGE   IP            NODE
-s3server-6ffc956c55-hp5cc   1/1     Running   1          1d    172.17.0.11   minikube
-s3server-6ffc956c55-llld7   1/1     Running   1          1d    172.17.0.10   minikube
-s3server-6ffc956c55-xhxbm   1/1     Running   1          1d    172.17.0.9    minikube
+
+  NAME                        READY   STATUS    RESTARTS   AGE   IP            NODE
+- s3server-6ffc956c55-hp5cc   1/1     Running   1          1d    172.17.0.11   minikube
+- s3server-6ffc956c55-llld7   1/1     Running   1          1d    172.17.0.10   minikube
+- s3server-6ffc956c55-xhxbm   1/1     Running   1          1d    172.17.0.9    minikube
 
 *And finally the Service "NodeType" bring a stable and reliable network, DNS, load-balancing and expose your app outside of the kubernetes cluster, Cluster IP and Port (in our case : 10.109.72.126:30042 over TCP)*
 
@@ -112,8 +115,9 @@ The DNS add-on implements a POD-based DNS service in the cluster and configures 
 ie: minikube addons list
 
   * kubectl get svc -l app=s3server -o wide
->NAME           TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE   SELECTOR
-s3server-svc   NodePort   10.109.72.126   <none>        8000:30042/TCP   5d    app=s3server
+
+  NAME           TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE   SELECTOR
+- s3server-svc   NodePort   10.109.72.126   <none>        8000:30042/TCP   5d    app=s3server
 
 > Behind the scene
 
