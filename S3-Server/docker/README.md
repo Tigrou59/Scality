@@ -27,29 +27,23 @@ volumes:
 
 *Pull the image s3server from the GitLab repo scality-s3server*
 
-   `docker login registry.forge.orange-labs.fr`
-   
+   `docker login registry.forge.orange-labs.fr`  
    `docker image pull registry.forge.orange-labs.fr/urba/scality-s3server`
 
-*Tag the image s3server for matching docker-compose YAML*
+*Tag the image s3server for matching docker-compose YAML*  
+`docker image tag scality-s3server:latest registry.forge.orange-labs.fr/urba/scality-s3server:scality-s3server`
 
-   `docker image tag scality-s3server:latest registry.forge.orange-labs.fr/urba/scality-s3server:scality-s3server`
+*For launch the s3 server in this context, copy the YAML file docker-compose.yml in a directory of your choice*  
+`docker-compose up -d`
 
-*For launch the s3 server in this context, copy the YAML file docker-compose.yml in a directory of your choice*
+*For stop the s3server and remove the container Docker*  
+`docker-compose down`
 
-   `docker-compose up -d`
+ *For container logs*  
+ `docker-compose logs -f`
 
-*For stop the s3server and remove the container Docker*
-
-   `docker-compose down`
-
- *For container logs*
-
-   `docker-compose logs -f`
-
- *For logs nodejs in the container*
-
-   `docker-compose logs | head -n +25`
+ *For logs nodejs in the container*  
+ `docker-compose logs | head -n +25`
 
 > Behind the scene
 
