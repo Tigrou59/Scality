@@ -8,11 +8,11 @@
 These variables specify authentication credentials for an account named "CustomAccount".
 
 You can set credentials for many accounts by editing conf/authdata.json (see below for further info), but if you just want to specify one set of your own, you can use these environment variables.
-The default access key is accessKey1, with the secret key verySecretKey1
+The default access key is newAccessKey, with the secret key newSecretKey
 
   environment:  
-    - SCALITY_ACCESS_KEY_ID=accessKey1  
-    - SCALITY_SECRET_ACCESS_KEY=verySecretKey1  
+    - SCALITY_ACCESS_KEY_ID=newAccessKey
+    - SCALITY_SECRET_ACCESS_KEY=newSecretKey  
 
 
 **In production with Docker hosted CloudServer**
@@ -21,9 +21,10 @@ The default access key is accessKey1, with the secret key verySecretKey1
 
   volumes:  
     - s3data:/usr/src/app/localData  
-    - s3data:/usr/src/app/localMetadata  
+    - s3metadata:/usr/src/app/localMetadata  
 volumes:  
-  s3data:  
+  s3data:
+  s3metadata:
 
 *Pull the image s3server from the GitLab repo scality-s3server*
 
